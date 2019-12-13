@@ -1,5 +1,5 @@
 import React from 'react'; 
-// import './Person.css'
+// import './Person.css';
 import styled from 'styled-components';
 
 // StyledDiv contains a valid react component component returned by function on right
