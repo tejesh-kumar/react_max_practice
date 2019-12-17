@@ -4,6 +4,11 @@ import Cockpit from '../components/Cockpit/Cockpit';
 import Persons from '../components/Persons/Persons';
 
 class App extends Component {
+  constructor(props) {
+    super(props);       //executes constructor of 'Component' so that it is properly initialized
+    console.log('[App.js] constructor');
+  }
+
   state = {
     persons: [
       {id:"dghgsr1", name: "tejesh", age: 24},
@@ -12,6 +17,15 @@ class App extends Component {
     ],
     otherState: 'some other value',
     showPersons: false
+  }
+
+  static getDerivedStateFromProps(props, state) {  // do: update internal state when props change, very rarely used, don't: http requests 
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
+  }
+
+  componentDidMount() {    // do: http-requests,  don't: state change in synchronously causes rendering again and again and performance reduces.
+    console.log('[App.js] componentDidMount');
   }
 
   nameChangedHandler = (event, personId) => {
@@ -39,6 +53,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('[App.js render]')
     let persons = null;
 
     if(this.state.showPersons) {

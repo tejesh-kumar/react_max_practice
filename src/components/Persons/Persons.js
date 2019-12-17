@@ -3,6 +3,7 @@ import Person from './Person/Person'
 
 // props contains array of persons which we wnat to convert to array of jsx elements.
 const persons = (props) => {
+    console.log('[Persons.js] rendering...');
     return props.persons.map((person, index) => <Person name={person.name} 
     age= {person.age} 
     click = {() => props.clicked(index)}
