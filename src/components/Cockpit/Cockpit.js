@@ -30,10 +30,10 @@ const cockpit = (props) => {
         btnClass = classes.Red;
     }
 
-    if(props.persons.length <= 2) {
+    if(props.personsLength <= 2) {  // Received personsLength instead of persons as props.
       assignedClasses.push(classes.red);
     }
-    if(props.persons.length <= 1) {
+    if(props.personsLength <= 1) {
       assignedClasses.push(classes.bold);
     }
 
@@ -46,4 +46,6 @@ const cockpit = (props) => {
     );
 };
 
-export default cockpit;
+export default React.memo(cockpit);
+// The above export is an alternative to shouldComponentUpdate() in functional components which renders the component
+// "cockpit" if it's props changes. Basically, it keeps a previous snapshot and compares to whether to re-render the component or not.
