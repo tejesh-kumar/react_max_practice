@@ -8,11 +8,20 @@ const cockpit = (props) => {
         setTimeout(() => {
             alert('Saved data to cloud');
         }, 1000);
-    }, [props.persons]);   // [a, b, c] the array contains all variables, to which useEffect() executes if they change, 
+        return () => {
+            console.log('[Cockpit.js] cleanup Work in useEffect');
+        };
+    }, []);   // [props.persons, b, c] the array contains all variables, to which useEffect() executes if they change, 
   // [] empty array if we want to execute useEffect() on page load once. Equivalent of componentDidMount() only.
 
 
     //  useEffect()       Different events or functions in different useEffect() calls.
+    useEffect(() => {   
+        console.log('[Cockpit.js] 2nd useEffect');
+        return () => {
+            console.log('[Cockpit.js] cleanup Work in 2nd useEffect');   // this useEffect() is useful to cancel some operation whenever the component is re-rendered.
+        };
+    })
 
     const assignedClasses = [];
     let btnClass = '';

@@ -34,6 +34,10 @@ class Persons extends Component {
         console.log(snapshot);
     }
 
+    componentWillUnmount() {  // To remove some event Listeners of removed DOM elements or functions to be executed just before modifying Dom
+        console.log('Persons.js [componentWillUnmount]');
+    }
+
     render() {
         console.log('[Persons.js] rendering...');
         return this.props.persons.map((person, index) => <Person name={person.name} 

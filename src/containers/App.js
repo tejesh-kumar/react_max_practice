@@ -16,7 +16,8 @@ class App extends Component {
       {id:"hcsssax3", name: "Syed", age: 25}
     ],
     otherState: 'some other value',
-    showPersons: false
+    showPersons: false,
+    showCockpit: true
   }
 
   static getDerivedStateFromProps(props, state) {  // do: update internal state when props change, very rarely used, don't: http requests 
@@ -74,11 +75,15 @@ class App extends Component {
 
     return (
         <div className={classes.App}>
-        <Cockpit 
+          <button onClick={() => {
+            this.setState({showCockpit: false})}
+            }>Remove Cockpit</button>
+        {this.state.showCockpit ? <Cockpit 
         title = {this.props.title} 
         showPersons={this.state.showPersons} 
         persons={this.state.persons} 
-        clicked={this.togglePersonsHandler}/>
+        clicked={this.togglePersonsHandler}/> : null
+      }
         {persons}
       </div>
     );
