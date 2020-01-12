@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+// import React, { Component } from 'react';
+import React, { PureComponent } from 'react';  // PureComponent includes shouldComponentUpdate which checks for all prop changes automatically.
 import Person from './Person/Person'
 
 // props contains array of persons which we wnat to convert to array of jsx elements.
@@ -13,20 +14,20 @@ import Person from './Person/Person'
 
 // export default persons;
 
-class Persons extends Component {
+class Persons extends PureComponent {
     // static getDerivedStateFromProps (state, props) {
     //     console.log('Persons.js [getDerivedStateFromProps]', state);
     //     return state;
     // }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log('Persons.js [shouldComponentUpdate]');
-        if(nextProps.persons !== this.props.persons) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log('Persons.js [shouldComponentUpdate]');
+    //     if(nextProps.persons !== this.props.persons) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     getSnapshotBeforeUpdate(previousProps, previousState) {
         console.log('Persons.js [getSnapshotBeforeUpdate]');
