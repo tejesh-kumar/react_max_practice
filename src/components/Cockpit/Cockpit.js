@@ -1,13 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import classes from './Cockpit.css';
 
 const cockpit = (props) => {
+    const toggleBtnRef = useRef(null); // We can pass an initial value here as parameters as it not only supports creating refs to dom Elements.
+    //toggleBtnRef.current.click();  // we get error here as toggleBtnRef is not assigned to button before returning the jsx but we are trying to click the button
+
     useEffect(() => {
         console.log('[Cockpit.js] useEffect');
         // Http request...
-        setTimeout(() => {
-            alert('Saved data to cloud');
-        }, 1000);
+        // setTimeout(() => {
+        //     alert('Saved data to cloud');
+        // }, 1000);
+        toggleBtnRef.current.click();  // useEffect() runs after return() of jsx for 1st time.
         return () => {
             console.log('[Cockpit.js] cleanup Work in useEffect');
         };
@@ -41,7 +45,7 @@ const cockpit = (props) => {
         <div className={classes.Cockpit}>
             <h1>{props.title}</h1>
             <p className={assignedClasses.join(' ')}>This is working</p>
-            <button className={btnClass} onClick={props.clicked}>Toggle Persons</button>
+            <button ref={toggleBtnRef} className={btnClass} onClick={props.clicked}>Toggle Persons</button>
         </div>       
     );
 };
