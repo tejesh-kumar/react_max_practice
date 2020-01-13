@@ -19,7 +19,8 @@ class App extends Component {
     ],
     otherState: 'some other value',
     showPersons: false,
-    showCockpit: true
+    showCockpit: true,
+    changeCounter: 0
   }
 
   static getDerivedStateFromProps(props, state) {  // do: update internal state when props change, very rarely used, don't: http requests 
@@ -46,10 +47,17 @@ class App extends Component {
     const person = {...this.state.persons[personIndex]};
     person.name = event.target.value;
     persons[personIndex] = person;
-    this.setState( {
-      persons: persons
-     }
-    )
+    // this.setState( {
+    //   persons: persons
+    //  }
+
+     this.setState((prevState, props) => {
+        return {
+          persons: persons,
+          changeCounter: prevState.changeCounter + 1
+         }
+     })
+    // )
   }
 
   deletePersonHandler = (personIndex) => {
