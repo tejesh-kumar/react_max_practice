@@ -1,9 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 import classes from './Cockpit.css';
+import AuthContext from '../../context/auth-context';
 
 const cockpit = (props) => {
     const toggleBtnRef = useRef(null); // We can pass an initial value here as parameters as it not only supports creating refs to dom Elements.
     //toggleBtnRef.current.click();  // we get error here as toggleBtnRef is not assigned to button before returning the jsx but we are trying to click the button
+    const authContext = useContext(AuthContext);  // Alternative to use content at any part of the function using useContext hook in functional components.
+
+    console.log(authContext.authenticated);
 
     useEffect(() => {
         console.log('[Cockpit.js] useEffect');
@@ -46,6 +50,10 @@ const cockpit = (props) => {
             <h1>{props.title}</h1>
             <p className={assignedClasses.join(' ')}>This is working</p>
             <button ref={toggleBtnRef} className={btnClass} onClick={props.clicked}>Toggle Persons</button>
+            {/* <AuthContext.Consumer>
+                { context => <button onClick = {context.login}>Log In</button> }
+            </AuthContext.Consumer> */}
+            <button onClick = {authContext.login}>Log In</button>
         </div>       
     );
 };

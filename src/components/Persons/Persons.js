@@ -1,6 +1,6 @@
 // import React, { Component } from 'react';
 import React, { PureComponent } from 'react';  // PureComponent includes shouldComponentUpdate which checks for all prop changes automatically.
-import Person from './Person/Person'
+import Person from './Person/Person';
 
 // props contains array of persons which we wnat to convert to array of jsx elements.
 // const persons = (props) => {
@@ -45,10 +45,10 @@ class Persons extends PureComponent {
 
     render() {
         console.log('[Persons.js] rendering...');
-        return this.props.persons.map((person, index) => <Person name={person.name} 
+        return this.props.persons.map((person, index) => <Person name = {person.name} 
         age = {person.age} 
         click = {() => this.props.clicked(index)}
-        changed = {(event) => this.props.changed(event, person.id)} 
+        changed = {(event) => this.props.changed(event, person.id)}
         key = {person.id} />);
     }   
 }

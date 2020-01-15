@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Aux from '../../../hoc/Auxiliary';
 import withClass from '../../../hoc/WithClass';
 import classes from './Person.css';
+import AuthContext from '../../../context/auth-context';
 
 // const person = (props) => {
 //     console.log('[person.js] rendering...');
@@ -23,6 +24,8 @@ class Person extends Component {
         this.inputElementRef = React.createRef(); //can be used from react v16.3 onwards and is a modern approach.
     }
 
+    static contextType = AuthContext;  // React v16.6, it allows react to connect class based components to the context behind the scene.
+
     static getDerivedStateFromProps (state, props) {
         console.log('[getDerivedStateFromProps]', state);
         return state;
@@ -31,6 +34,7 @@ class Person extends Component {
     componentDidMount() {
         // this.inputElement.focus();
         this.inputElementRef.current.focus();  // current is required to access current reference to input field.
+        console.log(this.context.authenticated); // static contextType allows to use context outside jsx return.
     }
 
     render() {
@@ -39,6 +43,10 @@ class Person extends Component {
             // <div className = {classes.Person}>
             // <Fragment>
             <Aux> 
+                {/* <AuthContext.Consumer>
+                    {(context) => context.authenticated ? <p>Autheticated!</p> : <p>Please login to continue</p>}
+                </AuthContext.Consumer> */}
+                    {this.context.authenticated ? <p>Autheticated!</p> : <p>Please login to continue</p>}
                 <p onClick = {this.props.click}>I'm {this.props.name} and I am {this.props.age} years old</p>
                 <p>{this.props.children}</p>
                 <input type="text" 

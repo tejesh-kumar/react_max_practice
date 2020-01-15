@@ -4,6 +4,7 @@ import Cockpit from '../components/Cockpit/Cockpit';
 import Persons from '../components/Persons/Persons';
 import Aux from '../hoc/Auxiliary';
 import withClass from '../hoc/WithClass';
+import AuthContext from '../context/auth-context';  //Auth Component can be used as component and it should wrap all the components which wants access to this context.(Here, cockpit & persons)
 
 class App extends Component {
   constructor(props) {
@@ -20,7 +21,8 @@ class App extends Component {
     otherState: 'some other value',
     showPersons: false,
     showCockpit: true,
-    changeCounter: 0
+    changeCounter: 0,
+    authenticated: false
   }
 
   static getDerivedStateFromProps(props, state) {  // do: update internal state when props change, very rarely used, don't: http requests 
@@ -72,6 +74,10 @@ class App extends Component {
     this.setState({showPersons: !doesShow});
   }
 
+  loginHandler = () => {
+    this.setState({authenticated: true});
+  }
+
   render() {
     console.log('[App.js render]')
     let persons = null;
@@ -88,17 +94,29 @@ class App extends Component {
           <button onClick={() => {
             this.setState({showCockpit: false})}
             }>Remove Cockpit</button>
-        {this.state.showCockpit ? <Cockpit 
-        title = {this.props.title} 
-        showPersons={this.state.showPersons} 
-        personsLength={this.state.persons.length}  // Sent personsLength instead of persons as props.
-        clicked={this.togglePersonsHandler}/> : null
-      }
-        {persons}
+
+        <AuthContext.Provider  
+            value={{
+              authenticated: this.state.authenticated, 
+              login: this.loginHandler
+            }}
+          >
+
+          {this.state.showCockpit ? <Cockpit 
+            title = {this.props.title} 
+            showPersons={this.state.showPersons} 
+            personsLength={this.state.persons.length}  // Sent personsLength instead of persons as props.
+            clicked={this.togglePersonsHandler}
+            /> : null
+        }
+
+          {persons}
+        </AuthContext.Provider>
       </Aux>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'It works now'));
   }
 }
+//Now, context is accessible in app, cockpit & persons components.
 
 export default withClass(App, classes.App);
